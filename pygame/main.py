@@ -10,20 +10,20 @@ CORES = {
 }
 
 class Janela:
-    def __init__(self, resolucao=(1180, 620), titulo='CodeSnake', fps=30):
+    def __init__(self, resolucao=(1180, 620), titulo='CodeSnake', fps=20):
         pg.init()
         self.janela = pg.display.set_mode(resolucao)
         pg.display.set_caption(titulo)
         self.clock = pg.time.Clock()
         self.limite_fps = fps
-        self.fonte = pg.font.Font("PressStart2P-Regular.ttf", 50)
-        self.fonte_pequena = pg.font.Font("PressStart2P-Regular.ttf", 30)
+        self.fonte = pg.font.Font("pygamamain-main/pygame/PressStart2P-Regular.ttf", 50)
+        self.fonte_pequena = pg.font.Font("pygamamain-main/pygame/PressStart2P-Regular.ttf", 30)
         self.executando, self.pausado, self.menu_inicial = True, False, True
-        self.fundo_menu = pg.image.load("imgtelamenu.jpg")  # Carregar imagem de fundo
+        self.fundo_menu = pg.image.load("pygamamain-main/pygame/imgtelamenu.jpg")  # Carregar imagem de fundo
         self.fundo_menu = pg.transform.scale(self.fundo_menu, resolucao)  # Ajustar tamanho
-        self.imagem_fundo_jogo = pg.image.load("imgtelaprincipal.jpg")  # Carregar imagem de fundo para o jogo
+        self.imagem_fundo_jogo = pg.image.load("pygamamain-main/pygame/imgtelaprincipal.jpg")  # Carregar imagem de fundo para o jogo
         self.imagem_fundo_jogo = pg.transform.scale(self.imagem_fundo_jogo, resolucao)  # Ajustar tamanho
-        self.imagem_maca = pg.image.load("macapygame.webp")  # Carregar imagem da maçã
+        self.imagem_maca = pg.image.load("pygamamain-main/pygame/macapygame.webp")  # Carregar imagem da maçã
         self.imagem_maca = pg.transform.scale(self.imagem_maca, (30, 30))  # Ajustar tamanho da maçã
 
     def limpar(self, cor='preto', fundo=None):
