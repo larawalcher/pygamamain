@@ -16,8 +16,8 @@ class Janela:
         pg.display.set_caption(titulo)
         self.clock = pg.time.Clock()
         self.limite_fps = fps
-        self.fonte = pg.font.SysFont("Arial", 60, bold=True)
-        self.fonte_pequena = pg.font.SysFont("Arial", 35, bold=True)
+        self.fonte = pg.font.Font("PressStart2P-Regular.ttf", 50)
+        self.fonte_pequena = pg.font.Font("PressStart2P-Regular.ttf", 30)
         self.executando, self.pausado, self.menu_inicial = True, False, True
         self.fundo_menu = pg.image.load("imgtelamenu.jpg")  # Carregar imagem de fundo
         self.fundo_menu = pg.transform.scale(self.fundo_menu, resolucao)  # Ajustar tamanho
