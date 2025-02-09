@@ -9,7 +9,7 @@ CORES = {
 }
 
 class Janela:
-    def __init__(self, resolucao=(1180, 720), titulo='CodeSnake', fps=30):
+    def __init__(self, resolucao=(1180, 620), titulo='CodeSnake', fps=30):
         pg.init()
         self.janela = pg.display.set_mode(resolucao)
         pg.display.set_caption(titulo)
@@ -20,17 +20,24 @@ class Janela:
         self.executando, self.pausado, self.menu_inicial = True, False, True
         self.fundo_menu = pg.image.load("imgtelamenu.jpg")  # Carregar imagem de fundo
         self.fundo_menu = pg.transform.scale(self.fundo_menu, resolucao)  # Ajustar tamanho
+        self.imagem_fundo_jogo = pg.image.load("imgtelaprincipal.jpg")  # Carregar imagem de fundo para o jogo
+        self.imagem_fundo_jogo = pg.transform.scale(self.imagem_fundo_jogo, resolucao)  # Ajustar tamanho
         self.imagem_maca = pg.image.load("macapygame.webp")  # Carregar imagem da maçã
         self.imagem_maca = pg.transform.scale(self.imagem_maca, (30, 30))  # Ajustar tamanho da maçã
-        
-    
+
+    def limpar(self, cor='preto', fundo=None):
+        if fundo:
+            self.janela.blit(fundo, (0, 0))  # Desenhar o fundo
+        else:
+            self.janela.fill(CORES[cor])
+
     def atualizar(self):
         pg.display.update()
         self.clock.tick(self.limite_fps)
 
     def limpar(self, cor='preto'):
         self.janela.fill(CORES[cor])
-    
+
     def desenhar_texto(self, texto, pos, cor='branco', fonte=None):
         if fonte is None:
             fonte = self.fonte
@@ -50,8 +57,12 @@ class CodeSnake:
         self.tamanho_grelha = (53, 30)
         self.cobrinha = [(10, 10), (9, 10), (8, 10)]
         self.direcao = (1, 0)
-        self.maçã = (random.randint(0, 52), random.randint(0, 29))
+        self.maçã = self.gerar_posicao_maca()
         self.pontuacao, self.fim_de_jogo = 0, False
+    
+    def gerar_posicao_maca(self):
+        # Garantir que a maçã fique dentro da tela (dentro dos limites da grelha)
+        return (random.randint(0, 45), random.randint(0, 25))
     
     def mover(self):
         if self.fim_de_jogo:
@@ -59,7 +70,7 @@ class CodeSnake:
         nova_cabeca = (self.cobrinha[0][0] + self.direcao[0], self.cobrinha[0][1] + self.direcao[1])
         self.cobrinha.insert(0, nova_cabeca)
         if nova_cabeca == self.maçã:
-            self.maçã = (random.randint(0, 52), random.randint(0, 29))
+            self.maçã = self.gerar_posicao_maca()  # Gerar nova posição para a maçã
             self.pontuacao += 1
         else:
             self.cobrinha.pop()
@@ -110,6 +121,7 @@ def loop_principal():
         elif janela.pausado:
             janela.desenhar_texto("Pausado - Pressione ESC para Continuar", (350, 300))
         else:
+            janela.janela.blit(janela.imagem_fundo_jogo, (0, 0))  # Adicionando o fundo do jogo
             jogo.mover()
             for segmento in jogo.cobrinha:
                 pg.draw.rect(janela.janela, CORES['verde'], (segmento[0] * 24, segmento[1] * 24, 24, 24))
