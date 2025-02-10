@@ -90,8 +90,8 @@ class CodeSnake:
     def desenhar(self, janela):
         for i, segmento in enumerate(self.cobrinha):
             cor = CORES['vermelho'] if i == 0 else CORES['azul_claro']
-            pg.draw.circle(janela.janela, cor, (segmento[0] * 24 + 12, segmento[1] * 24 + 12), 12)
-            pg.draw.circle(janela.janela, CORES['preto'], (segmento[0] * 24 + 12, segmento[1] * 24 + 12), 12, 2)
+            pg.draw.circle(janela, cor, (segmento[0] * 24 + 12, segmento[1] * 24 + 12), 12)
+            pg.draw.circle(janela, CORES['preto'], (segmento[0] * 24 + 12, segmento[1] * 24 + 12), 12, 2)
 
 janela = Janela()
 jogo = CodeSnake()
@@ -106,7 +106,7 @@ def loop_principal():
                 jogo.mudar_direcao(evento.key)
         
         jogo.mover()
-        jogo.desenhar(janela)
+        jogo.desenhar(janela.janela)
         janela.janela.blit(janela.imagem_maca, (jogo.maçã[0] * 24, jogo.maçã[1] * 24))
         janela.desenhar_texto(f"Pontuação: {jogo.pontuacao}", (10, 10))
         janela.atualizar()
