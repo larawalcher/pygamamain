@@ -110,14 +110,10 @@ def loop_principal():
                         janela.pausado = not janela.pausado
                     elif not janela.pausado:
                         jogo.mudar_direcao(evento.key)
-        
-        if janela.menu_inicial:
-            janela.janela.blit(janela.fundo_menu, (0, 0))  # Imagem de fundo
-            # Título centralizado
-            janela.desenhar_texto("CodeSnake", (janela.janela.get_width() // 2 - janela.fonte.size("CodeSnake")[0] // 2, 100), cor='branco', fonte=janela.fonte)
+                if janela.menu_inicial:
+            janela.desenhar_texto("CodeSnake", (janela.janela.get_width() // 2 - 200, 100), cor='branco', fonte=janela.fonte)
             botao_iniciar = janela.botao("Iniciar", (500, 300), (200, 80), cor='amarelo', cor_texto='preto')
             if pg.mouse.get_pressed()[0] and botao_iniciar.collidepoint(pg.mouse.get_pos()):
-                janela.menu_inicial = False
         
         elif janela.pausado:
             janela.desenhar_texto("Pausado - Pressione ESC para Continuar", (350, 300))
